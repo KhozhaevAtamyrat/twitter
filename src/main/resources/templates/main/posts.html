@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+<form method="post" action="/main">
+    <input type="text" name="text">
+    <input type="text" name="tag">
+    <input type="submit" value="Добавить!">
+</form>
+
+<form method="post" action="filter">
+    <input type="text" name="filter">
+    <input type="submit" value="Найти!">
+</form>
+
+<div>Список сообщений</div>
+
+<div>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>text</th>
+            <th>tag</th>
+            <th>Like?</th>
+        </tr>
+
+        <tr th:each="post: ${posts}">
+            <td th:utext="${post.getId()}"></td>
+            <td th:utext="${post.getText()}"></td>
+            <td th:utext="${post.getTag()}"></td>
+            <td>
+                <form th:action="@{like/{id}(id=${post.id})}" method="post">
+                    <input type="submit" value="Like!">
+                </form>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+</html>
